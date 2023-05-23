@@ -1,9 +1,15 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function Home() {
+	const [cardHolderName, setCardHolderName] = useState("Jane Appleseed");
+	const [cardNumber, setCardNumber] = useState<string>("0000 0000 0000 0000");
+	const [MM, setMM] = useState("00");
+	const [YY, setYY] = useState("00");
+	const [cvc, setCvc] = useState("000");
+
 	return (
 		<>
 			<Head>
@@ -23,28 +29,79 @@ export default function Home() {
 									width={65}
 									height={35}
 								/>
-								<span>0000 0000 0000 0000</span>
+								<span>{cardNumber}</span>
 								<div>
-									<p>Jane Appleseed</p>
-									<p>00/00</p>
+									<p>{cardHolderName}</p>
+									<p>
+										{MM}/{YY}
+									</p>
 								</div>
 							</div>
 						</div>
 						<div className={styles.cardBack}>
-							<span>000</span>
+							<span>{cvc}</span>
 						</div>
 					</div>
 					<div className={styles.debitCardForm}>
 						<form>
 							<label>CARDHOLDER NAME</label>
-							<input type="text" placeholder="e.g. Jane Appleseed" />
+							<input
+								type="text"
+								placeholder="e.g. Jane Appleseed"
+								onChange={(e) => {
+									e.target.value == ""
+										? setCardHolderName("Jane Appleseed")
+										: setCardHolderName(
+												e.target.value.length > 24
+													? e.target.value.slice(0, 25) + "..."
+													: e.target.value
+										  );
+								}}
+								maxLength={255}
+							/>
 							<label>CARD NUMBER</label>
-							<input type="text" placeholder="e.g. 1234 5678 9123 0000" />
+							<input
+								type="text"
+								placeholder="e.g. 1234 5678 9123 0000"
+								onChange={(e) => {
+									let value: undefined | string = e.target.value;
+									value = value.replace(/\s/g, ""); // remove any existing spaces
+									value = value.match(/.{1,4}/g)?.join(" "); // add spaces every 4 characters
+									if (typeof value === "undefined") {
+										setCardNumber("0000 0000 0000 0000");
+									} else {
+										setCardNumber(value);
+										e.target.value = value;
+									}
+								}}
+								maxLength={19}
+							/>
 							<label>EXP. DATE (MM/YY)</label>
 							<label>cvc</label>
-							<input type="text" placeholder="MM" />
-							<input type="text" placeholder="YY" />
-							<input type="text" placeholder="e.g. 123" />
+							<input
+								type="text"
+								placeholder="MM"
+								onChange={(e) => {
+									e.target.value == "" ? setMM("00") : setMM(e.target.value);
+								}}
+								maxLength={2}
+							/>
+							<input
+								type="text"
+								placeholder="YY"
+								onChange={(e) => {
+									e.target.value == "" ? setYY("00") : setYY(e.target.value);
+								}}
+								maxLength={2}
+							/>
+							<input
+								type="text"
+								placeholder="e.g. 123"
+								onChange={(e) => {
+									e.target.value == "" ? setCvc("000") : setCvc(e.target.value);
+								}}
+								maxLength={3}
+							/>
 							<input type="submit" value="Confirm" />
 						</form>
 					</div>
