@@ -1,8 +1,7 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
+import Image from "next/image";
 import styles from "@/styles/Home.module.css";
-
-const inter = Inter({ subsets: ["latin"] });
+import { useState } from "react";
 
 export default function Home() {
 	return (
@@ -13,7 +12,44 @@ export default function Home() {
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<link rel="icon" href="/favicon-32x32.png" />
 			</Head>
-			<main></main>
+			<main className={styles.main}>
+				<div className={styles.container}>
+					<div className={styles.cardPreview}>
+						<div className={styles.cardFront}>
+							<div className={styles.wrapper}>
+								<Image
+									src={"/card-logo.svg"}
+									alt={"card logo"}
+									width={65}
+									height={35}
+								/>
+								<span>0000 0000 0000 0000</span>
+								<div>
+									<p>Jane Appleseed</p>
+									<p>00/00</p>
+								</div>
+							</div>
+						</div>
+						<div className={styles.cardBack}>
+							<span>000</span>
+						</div>
+					</div>
+					<div className={styles.debitCardForm}>
+						<form>
+							<label>CARDHOLDER NAME</label>
+							<input type="text" placeholder="e.g. Jane Appleseed" />
+							<label>CARD NUMBER</label>
+							<input type="text" placeholder="e.g. 1234 5678 9123 0000" />
+							<label>EXP. DATE (MM/YY)</label>
+							<label>cvc</label>
+							<input type="text" placeholder="MM" />
+							<input type="text" placeholder="YY" />
+							<input type="text" placeholder="e.g. 123" />
+							<input type="submit" value="Confirm" />
+						</form>
+					</div>
+				</div>
+			</main>
 		</>
 	);
 }

@@ -1,0 +1,145 @@
+.main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    width: 100vw;
+    height: 100vh;
+
+}
+
+.cardPreview {
+    background-image: url("../public/bg-main-desktop.png");
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}
+
+.cardFront,
+.cardBack {
+    background-size: cover;
+    width: 370px;
+    height: 200px;
+    position: relative;
+    color: #fff;
+    font-weight: 500;
+}
+
+.cardFront {
+    background-image: url("../public/bg-card-front.png");
+    transform: translateX(40%);
+}
+
+.wrapper {
+    width: 100%;
+    height: 100%;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+}
+
+.cardFront span {
+    margin-top: 50px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    letter-spacing: .1em;
+}
+
+.cardFront .wrapper div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.cardBack {
+    background-image: url("../public/bg-card-back.png");
+    transform: translateX(60%);
+}
+
+.cardBack span {
+    position: absolute;
+    top: 88px;
+    right: 45px;
+    letter-spacing: .1em;
+}
+
+.debitCardForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.debitCardForm form {
+    display: grid;
+    grid-template-columns: repeat(24, 10px);
+    column-gap: 5px;
+    transform: translateX(70px);
+}
+
+.debitCardForm form input {
+    padding: 9px 0 9px 10px;
+    border-radius: 5px;
+    outline: none;
+    border: solid 1px #c5c3c6;
+}
+
+.debitCardForm form label {
+    letter-spacing: .1em;
+    font-size: 11px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.debitCardForm form label:nth-of-type(3) {
+    grid-column: 1/11;
+    width: max-content;
+}
+
+.debitCardForm form label:nth-of-type(4) {
+    grid-column: 12/24;
+}
+
+.debitCardForm form label,
+.debitCardForm form input:first-of-type,
+.debitCardForm form input:nth-of-type(2),
+.debitCardForm form input:last-of-type {
+    grid-column: 1/24;
+}
+
+.debitCardForm form input:nth-of-type(3) {
+    grid-column: 1/6;
+}
+
+.debitCardForm form input:nth-of-type(4) {
+    grid-column: 6/11;
+}
+
+.debitCardForm form input:nth-of-type(5) {
+    grid-column: 12/24;
+}
+
+.debitCardForm form input:nth-of-type(3),
+.debitCardForm form input:nth-of-type(4),
+.debitCardForm form input:nth-of-type(5) {
+    margin-bottom: 25px;
+}
+
+.debitCardForm form input:last-of-type {
+    background-color: #220930;
+    border-color: #220930;
+    font-weight: 500;
+    color: #fff;
+    cursor: pointer;
+    padding: 10px 0 10px 0;
+}
