@@ -94,6 +94,14 @@
     border: solid 1px #c5c3c6;
 }
 
+
+.debitCardForm form label,
+.debitCardForm form input:first-of-type,
+.debitCardForm form input:nth-of-type(2),
+.debitCardForm form input:last-of-type {
+    grid-column: 1/24;
+}
+
 .debitCardForm form label {
     letter-spacing: .1em;
     font-size: 11px;
@@ -108,13 +116,6 @@
 
 .debitCardForm form label:nth-of-type(4) {
     grid-column: 12/24;
-}
-
-.debitCardForm form label,
-.debitCardForm form input:first-of-type,
-.debitCardForm form input:nth-of-type(2),
-.debitCardForm form input:last-of-type {
-    grid-column: 1/24;
 }
 
 .debitCardForm form input:nth-of-type(3) {
@@ -141,5 +142,5 @@
     font-weight: 500;
     color: #fff;
     cursor: pointer;
-    padding: 10px 0 10px 0;
+    padding: 10px 0;
 }
