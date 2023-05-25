@@ -144,3 +144,22 @@
     cursor: pointer;
     padding: 10px 0;
 }
+
+.debitCardForm p[role="alert"] {
+  color: red;
+  font-size: 10px;
+  grid-column: 1/24;
+}
+
+.debitCardForm p[role="alert"]:nth-of-type(3) {
+  grid-column: 1/6;
+}
+
+.debitCardForm p[role="alert"]:nth-of-type(4) {
+  grid-column: 6/11;
+}
+
+.debitCardForm p[role="alert"]:nth-of-type(5) {
+  grid-column: 12/24;
+  color: blue;
+}

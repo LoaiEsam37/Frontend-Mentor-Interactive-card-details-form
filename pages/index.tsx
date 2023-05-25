@@ -2,6 +2,9 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
 import React, { useState } from "react";
+import { FieldValues, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 export default function Home() {
   const [cardHolderName, setCardHolderName] = useState("Jane Appleseed");
@@ -13,57 +16,104 @@ export default function Home() {
   const handleCardHolderNameChange = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
-    if (e.target.value == "") {
+    let value = e.target.value;
+    value = value.replace(/[^a-zA-Z\s]/g, "").toUpperCase();
+    e.target.value = value.slice(0, 255);
+    if (value == "") {
       setCardHolderName("Jane Appleseed");
     } else {
-      setCardHolderName(
-        e.target.value.length > 24
-          ? e.target.value.slice(0, 25) + "..."
-          : e.target.value
-      );
+      setCardHolderName(value.length > 24 ? value.slice(0, 25) + "..." : value);
     }
   };
 
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value: undefined | string = e.target.value;
-    value = value.replace(/\s/g, "");
+    let defaultPattern = "0000 0000 0000 0000";
+    value = value.replace(/[^0-9]/g, "");
+    e.target.value = value;
     value = value.match(/.{1,4}/g)?.join(" ");
     if (typeof value === "undefined") {
-      setCardNumber("0000 0000 0000 0000");
+      setCardNumber(defaultPattern);
     } else {
-      setCardNumber(value);
-      e.target.value = value;
+      let emptySpace = value.slice(0, 19).length;
+      setCardNumber(value.slice(0, 19) + defaultPattern.slice(emptySpace));
+      e.target.value = value.slice(0, 19);
     }
   };
 
   const handleMMChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value == "") {
+    let value: undefined | string = e.target.value;
+    value = value.replace(/[^0-9]/g, "");
+    e.target.value = value.slice(0, 2);
+    if (value == "") {
       setMM("00");
     } else {
-      let value: undefined | string = e.target.value;
-      value = value.replace(/[^0-9]/g, "");
-      setMM(value);
+      value.length === 1 ? setMM("0" + value) : setMM(value.slice(0, 2));
     }
   };
 
   const handleYYChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value == "") {
+    let value: undefined | string = e.target.value;
+    value = value.replace(/[^0-9]/g, "");
+    e.target.value = value.slice(0, 2);
+    if (value == "") {
       setYY("00");
     } else {
-      let value: undefined | string = e.target.value;
-      value = value.replace(/[^0-9]/g, "");
-      setYY(value);
+      value.length === 1 ? setYY("0" + value) : setYY(value.slice(0, 2));
     }
   };
 
   const handleCvcChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value == "") {
+    let value: undefined | string = e.target.value;
+    value = value.replace(/[^0-9]/g, "");
+    e.target.value = value.slice(0, 3);
+    if (value == "") {
       setCvc("000");
     } else {
-      let value: undefined | string = e.target.value;
-      value = value.replace(/[^0-9]/g, "");
-      setCvc(value);
+      value.length === 1
+        ? setCvc(value + "00")
+        : value.length === 2
+        ? setCvc(value + "0")
+        : setCvc(value.slice(0, 3));
     }
+  };
+
+  const schema = yup.object().shape({
+    cardHolderName: yup.string().required("can`t be blank"),
+    cardNumber: yup
+      .string()
+      .required("can`t be blank")
+      .matches(/^\d{4}(?:\s?\d{4}){3}$/, "card number must have 16 digits")
+      .transform((value, originalValue) =>
+        value ? value.replace(/\s/g, "") : originalValue
+      ),
+    MM: yup
+      .number()
+      .typeError("Wrong format, numbers only")
+      .required("can`t be blank")
+      .min(1, "enter a vaild month")
+      .max(12, "enter a vaild month"),
+    YY: yup
+      .number()
+      .typeError("Wrong format, numbers only")
+      .required("can`t be blank")
+      .min(new Date().getFullYear() % 100),
+    cvc: yup
+      .number()
+      .typeError("Wrong format, numbers only")
+      .required("can`t be blank"),
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+
+  const onSubmit = (data: FieldValues) => {
+    alert(JSON.stringify(data));
   };
 
   return (
@@ -99,41 +149,50 @@ export default function Home() {
             </div>
           </div>
           <div className={styles.debitCardForm}>
-            <form>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <label>CARDHOLDER NAME</label>
               <input
+                {...register("cardHolderName")}
                 type="text"
                 placeholder="e.g. Jane Appleseed"
                 onChange={handleCardHolderNameChange}
-                maxLength={255}
               />
+              {errors.cardHolderName && (
+                <p role="alert">{errors.cardHolderName?.message}</p>
+              )}
               <label>CARD NUMBER</label>
               <input
+                {...register("cardNumber")}
                 type="text"
                 placeholder="e.g. 1234 5678 9123 0000"
                 onChange={handleCardNumberChange}
-                maxLength={19}
               />
+              {errors.cardNumber && (
+                <p role="alert">{errors.cardNumber?.message}</p>
+              )}
               <label>EXP. DATE (MM/YY)</label>
               <label>cvc</label>
               <input
+                {...register("MM")}
                 type="text"
                 placeholder="MM"
                 onChange={handleMMChange}
-                maxLength={2}
               />
+              {errors.MM && <p role="alert">{errors.MM?.message}</p>}
               <input
+                {...register("YY")}
                 type="text"
                 placeholder="YY"
                 onChange={handleYYChange}
-                maxLength={2}
               />
+              {errors.YY && <p role="alert">{errors.YY?.message}</p>}
               <input
+                {...register("cvc")}
                 type="text"
                 placeholder="e.g. 123"
                 onChange={handleCvcChange}
-                maxLength={3}
               />
+              {errors.cvc && <p role="alert">{errors.cvc?.message}</p>}
               <input type="submit" value="Confirm" />
             </form>
           </div>
