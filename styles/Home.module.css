@@ -10,7 +10,6 @@
     grid-template-columns: 1fr 2fr;
     width: 100vw;
     height: 100vh;
-
 }
 
 .cardPreview {
@@ -157,4 +156,53 @@
 .debitCardForm form div div:nth-of-type(1),
 .debitCardForm form div div:nth-of-type(2) {
   width: 70px;
+}
+
+.thankYou {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.thankYou div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+  transform: translateX(70px);
+}
+
+.thankYou h2 {
+  margin: 30px 0 10px;
+  font-weight: 300;
+  letter-spacing: .1em;
+}
+
+.thankYou p {
+  color: #919193;
+  margin-bottom: 40px;
+}
+
+.thankYou button {
+  width: 350px;
+  background-color: #220930;
+  border-color: #220930;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 0;
+  border-radius: 5px;
+  font-size: 18px;
+  text-transform: capitalize;
+}
+
+@media (max-width: 1120px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+
+  .cardPreview {
+    background-image: url("../public/bg-main-mobile.png");
+  }
 }

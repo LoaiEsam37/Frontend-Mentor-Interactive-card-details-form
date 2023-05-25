@@ -5,7 +5,6 @@ import React, { ReactNode, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import ThankYou from "@/components/ThankYou";
 
 export default function Home() {
   const [cardHolderName, setCardHolderName] = useState("Jane Appleseed");
@@ -163,7 +162,9 @@ export default function Home() {
                   onChange={handleCardHolderNameChange}
                 />
                 {errors.cardHolderName && (
-                  <p role="alert">{errors.cardHolderName?.message as ReactNode}</p>
+                  <p role="alert">
+                    {errors.cardHolderName?.message as ReactNode}
+                  </p>
                 )}
                 <label>CARD NUMBER</label>
                 <input
@@ -187,7 +188,9 @@ export default function Home() {
                       placeholder="MM"
                       onChange={handleMMChange}
                     />
-                    {errors.MM && <p role="alert">{errors.MM?.message as ReactNode}</p>}
+                    {errors.MM && (
+                      <p role="alert">{errors.MM?.message as ReactNode}</p>
+                    )}
                   </div>
                   <div>
                     <input
@@ -196,7 +199,9 @@ export default function Home() {
                       placeholder="YY"
                       onChange={handleYYChange}
                     />
-                    {errors.YY && <p role="alert">{errors.YY?.message as ReactNode}</p>}
+                    {errors.YY && (
+                      <p role="alert">{errors.YY?.message as ReactNode}</p>
+                    )}
                   </div>
                   <div>
                     <input
@@ -214,7 +219,19 @@ export default function Home() {
               </form>
             </div>
           ) : (
-            <ThankYou />
+            <div className={styles.thankYou}>
+              <div>
+                <Image
+                  src={"/icon-complete.svg"}
+                  alt="complete icon"
+                  width={80}
+                  height={80}
+                />
+                <h2>THANK YOU!</h2>
+                <p>We`ve added your card details</p>
+                <button>continue</button>
+              </div>
+            </div>
           )}
         </div>
       </main>
