@@ -25,8 +25,10 @@
 .cardFront,
 .cardBack {
     background-size: cover;
+    background-repeat: no-repeat;
     width: 370px;
     height: 200px;
+    min-height: 200px;
     position: relative;
     color: #fff;
     font-weight: 500;
@@ -201,12 +203,72 @@
   .container {
     grid-template-columns: 1fr;
   }
-
+  
   .cardPreview {
     background-image: url("../public/bg-main-mobile.png");
+    height: 300px;
+  }
+  
+  .debitCardForm {
+    margin-top: 100px;
+    padding-bottom: 100px;
+  }
+  
+  .thankYou div {
+    margin-top: 100px;
+    padding-bottom: 100px;
+    transform: translateX(0);
+  }
+  
+  .debitCardForm form {
+    transform: translateX(0);
+    width: 550px;
   }
 
+  .debitCardForm form div div:nth-of-type(3) {
+    width: 100%;
+  }
+
+  .debitCardForm form div:nth-of-type(1) label:nth-of-type(2) {
+    margin-left: 5px;
+  }
+  
+  .cardFront {
+    transform: translate(-105px, 220px);
+    z-index: 1;
+  }
+
+  .cardBack {
+    transform: translate(105px, -135px);
+  }
+}
+
+@media (width <= 610px) {
+  .debitCardForm {
+    margin-top: 80px;
+    padding-bottom: 100px;
+  }
+  
   .thankYou div {
-    transform: translateX(0px);
+    margin-top: 80px;
+    padding-bottom: 100px;
+    transform: translateX(0);
+  }
+  
+  .debitCardForm form {
+    width: 350px;
+  }
+
+  .debitCardForm form div:nth-of-type(1) label:nth-of-type(2) {
+    margin-left: -5px;
+  }
+  
+  .cardFront {
+    transform: translate(-40px, 220px);
+    z-index: 1;
+  }
+
+  .cardBack {
+    transform: translate(40px, -135px);
   }
 }

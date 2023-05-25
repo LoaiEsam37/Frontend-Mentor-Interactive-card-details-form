@@ -148,7 +148,9 @@ export default function Home() {
               </div>
             </div>
             <div className={styles.cardBack}>
-              <span>{cvc}</span>
+              <div className="wrapper">
+                <span>{cvc}</span>
+              </div>
             </div>
           </div>
           {pagination === 1 ? (
