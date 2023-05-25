@@ -53,6 +53,18 @@
     letter-spacing: .1em;
 }
 
+.debitCardForm form div {
+  display: flex;
+  gap: 15px;
+}
+
+.debitCardForm form div div {
+  display: flex;
+  flex-direction: column;
+  font-size: 11px;
+  height: min-content;
+}
+
 .cardFront .wrapper div {
     display: flex;
     justify-content: space-between;
@@ -61,6 +73,7 @@
     letter-spacing: .1em;
     text-transform: uppercase;
 }
+
 
 .cardBack {
     background-image: url("../public/bg-card-back.png");
@@ -81,10 +94,10 @@
 }
 
 .debitCardForm form {
-    display: grid;
-    grid-template-columns: repeat(24, 10px);
-    column-gap: 5px;
+    display: flex;
+    flex-direction: column;
     transform: translateX(70px);
+    width: 350px;
 }
 
 .debitCardForm form input {
@@ -92,14 +105,7 @@
     border-radius: 5px;
     outline: none;
     border: solid 1px #c5c3c6;
-}
-
-
-.debitCardForm form label,
-.debitCardForm form input:first-of-type,
-.debitCardForm form input:nth-of-type(2),
-.debitCardForm form input:last-of-type {
-    grid-column: 1/24;
+    position: relative;
 }
 
 .debitCardForm form label {
@@ -109,34 +115,7 @@
     margin-top: 20px;
 }
 
-.debitCardForm form label:nth-of-type(3) {
-    grid-column: 1/11;
-    width: max-content;
-}
-
-.debitCardForm form label:nth-of-type(4) {
-    grid-column: 12/24;
-}
-
-.debitCardForm form input:nth-of-type(3) {
-    grid-column: 1/6;
-}
-
-.debitCardForm form input:nth-of-type(4) {
-    grid-column: 6/11;
-}
-
-.debitCardForm form input:nth-of-type(5) {
-    grid-column: 12/24;
-}
-
-.debitCardForm form input:nth-of-type(3),
-.debitCardForm form input:nth-of-type(4),
-.debitCardForm form input:nth-of-type(5) {
-    margin-bottom: 25px;
-}
-
-.debitCardForm form input:last-of-type {
+.debitCardForm form input[type="submit"] {
     background-color: #220930;
     border-color: #220930;
     font-weight: 500;
@@ -145,21 +124,37 @@
     padding: 10px 0;
 }
 
-.debitCardForm p[role="alert"] {
+.debitCardForm form p {
   color: red;
-  font-size: 10px;
-  grid-column: 1/24;
+  font-size: 11px;
+  margin-top: 4px;
 }
 
-.debitCardForm p[role="alert"]:nth-of-type(3) {
-  grid-column: 1/6;
+.debitCardForm form div:nth-of-type(2) {
+  margin-bottom: 10px;
 }
 
-.debitCardForm p[role="alert"]:nth-of-type(4) {
-  grid-column: 6/11;
+.debitCardForm form div div:nth-of-type(3) {
+  width: 200px;
 }
 
-.debitCardForm p[role="alert"]:nth-of-type(5) {
-  grid-column: 12/24;
-  color: blue;
+.debitCardForm form div div p {
+  color: red;
+  width: 80px;
+  margin-top: -10px;
+}
+
+.debitCardForm form div div:last-of-type p {
+  color: red;
+  width: 130px;
+  margin-top: -10px;
+}
+
+.debitCardForm form div div input {
+  width: 100%;
+}
+
+.debitCardForm form div div:nth-of-type(1),
+.debitCardForm form div div:nth-of-type(2) {
+  width: 70px;
 }

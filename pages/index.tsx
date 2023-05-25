@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import ThankYou from "@/components/ThankYou";
 
 export default function Home() {
   const [cardHolderName, setCardHolderName] = useState("Jane Appleseed");
@@ -12,6 +13,7 @@ export default function Home() {
   const [MM, setMM] = useState("00");
   const [YY, setYY] = useState("00");
   const [cvc, setCvc] = useState("000");
+  const [pagination, setPagination] = useState(1);
 
   const handleCardHolderNameChange = (
     e: React.ChangeEvent<HTMLInputElement>
@@ -79,29 +81,30 @@ export default function Home() {
   };
 
   const schema = yup.object().shape({
-    cardHolderName: yup.string().required("can`t be blank"),
+    cardHolderName: yup.string().required("Can`t be blank"),
     cardNumber: yup
       .string()
-      .required("can`t be blank")
+      .required("Can`t be blank")
       .matches(/^\d{4}(?:\s?\d{4}){3}$/, "card number must have 16 digits")
       .transform((value, originalValue) =>
         value ? value.replace(/\s/g, "") : originalValue
       ),
     MM: yup
       .number()
-      .typeError("Wrong format, numbers only")
-      .required("can`t be blank")
-      .min(1, "enter a vaild month")
-      .max(12, "enter a vaild month"),
+      .typeError("Can`t be blank")
+      .required("Can`t be blank")
+      .min(1, "Enter a vaild month")
+      .max(12, "Enter a vaild month"),
     YY: yup
       .number()
-      .typeError("Wrong format, numbers only")
-      .required("can`t be blank")
-      .min(new Date().getFullYear() % 100),
+      .typeError("Can`t be blank")
+      .required("Can`t be blank")
+      .min(new Date().getFullYear() % 100, "Enter a vaild year"),
     cvc: yup
-      .number()
-      .typeError("Wrong format, numbers only")
-      .required("can`t be blank"),
+      .string()
+      .typeError("Can`t be blank")
+      .required("Can`t be blank")
+      .matches(/^\d{3}$/, "cvc must have 3 digits"),
   });
 
   const {
@@ -114,6 +117,7 @@ export default function Home() {
 
   const onSubmit = (data: FieldValues) => {
     alert(JSON.stringify(data));
+    setPagination(2);
   };
 
   return (
@@ -148,54 +152,68 @@ export default function Home() {
               <span>{cvc}</span>
             </div>
           </div>
-          <div className={styles.debitCardForm}>
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <label>CARDHOLDER NAME</label>
-              <input
-                {...register("cardHolderName")}
-                type="text"
-                placeholder="e.g. Jane Appleseed"
-                onChange={handleCardHolderNameChange}
-              />
-              {errors.cardHolderName && (
-                <p role="alert">{errors.cardHolderName?.message}</p>
-              )}
-              <label>CARD NUMBER</label>
-              <input
-                {...register("cardNumber")}
-                type="text"
-                placeholder="e.g. 1234 5678 9123 0000"
-                onChange={handleCardNumberChange}
-              />
-              {errors.cardNumber && (
-                <p role="alert">{errors.cardNumber?.message}</p>
-              )}
-              <label>EXP. DATE (MM/YY)</label>
-              <label>cvc</label>
-              <input
-                {...register("MM")}
-                type="text"
-                placeholder="MM"
-                onChange={handleMMChange}
-              />
-              {errors.MM && <p role="alert">{errors.MM?.message}</p>}
-              <input
-                {...register("YY")}
-                type="text"
-                placeholder="YY"
-                onChange={handleYYChange}
-              />
-              {errors.YY && <p role="alert">{errors.YY?.message}</p>}
-              <input
-                {...register("cvc")}
-                type="text"
-                placeholder="e.g. 123"
-                onChange={handleCvcChange}
-              />
-              {errors.cvc && <p role="alert">{errors.cvc?.message}</p>}
-              <input type="submit" value="Confirm" />
-            </form>
-          </div>
+          {pagination === 1 ? (
+            <div className={styles.debitCardForm}>
+              <form onSubmit={handleSubmit(onSubmit)}>
+                <label>CARDHOLDER NAME</label>
+                <input
+                  {...register("cardHolderName")}
+                  type="text"
+                  placeholder="e.g. Jane Appleseed"
+                  onChange={handleCardHolderNameChange}
+                />
+                {errors.cardHolderName && (
+                  <p role="alert">{errors.cardHolderName?.message}</p>
+                )}
+                <label>CARD NUMBER</label>
+                <input
+                  {...register("cardNumber")}
+                  type="text"
+                  placeholder="e.g. 1234 5678 9123 0000"
+                  onChange={handleCardNumberChange}
+                />
+                {errors.cardNumber && (
+                  <p role="alert">{errors.cardNumber?.message}</p>
+                )}
+                <div>
+                  <label>EXP. DATE (MM/YY)</label>
+                  <label>cvc</label>
+                </div>
+                <div>
+                  <div>
+                    <input
+                      {...register("MM")}
+                      type="text"
+                      placeholder="MM"
+                      onChange={handleMMChange}
+                    />
+                    {errors.MM && <p role="alert">{errors.MM?.message}</p>}
+                  </div>
+                  <div>
+                    <input
+                      {...register("YY")}
+                      type="text"
+                      placeholder="YY"
+                      onChange={handleYYChange}
+                    />
+                    {errors.YY && <p role="alert">{errors.YY?.message}</p>}
+                  </div>
+                  <div>
+                    <input
+                      {...register("cvc")}
+                      type="text"
+                      placeholder="e.g. 123"
+                      onChange={handleCvcChange}
+                    />
+                    {errors.cvc && <p role="alert">{errors.cvc?.message}</p>}
+                  </div>
+                </div>
+                <input type="submit" value="Confirm" />
+              </form>
+            </div>
+          ) : (
+            <ThankYou />
+          )}
         </div>
       </main>
     </>
