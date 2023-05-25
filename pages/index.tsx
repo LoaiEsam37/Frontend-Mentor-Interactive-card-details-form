@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "@/styles/Home.module.css";
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -163,7 +163,7 @@ export default function Home() {
                   onChange={handleCardHolderNameChange}
                 />
                 {errors.cardHolderName && (
-                  <p role="alert">{errors.cardHolderName?.message}</p>
+                  <p role="alert">{errors.cardHolderName?.message as ReactNode}</p>
                 )}
                 <label>CARD NUMBER</label>
                 <input
@@ -173,7 +173,7 @@ export default function Home() {
                   onChange={handleCardNumberChange}
                 />
                 {errors.cardNumber && (
-                  <p role="alert">{errors.cardNumber?.message}</p>
+                  <p role="alert">{errors.cardNumber?.message as ReactNode}</p>
                 )}
                 <div>
                   <label>EXP. DATE (MM/YY)</label>
@@ -187,7 +187,7 @@ export default function Home() {
                       placeholder="MM"
                       onChange={handleMMChange}
                     />
-                    {errors.MM && <p role="alert">{errors.MM?.message}</p>}
+                    {errors.MM && <p role="alert">{errors.MM?.message as ReactNode}</p>}
                   </div>
                   <div>
                     <input
@@ -196,7 +196,7 @@ export default function Home() {
                       placeholder="YY"
                       onChange={handleYYChange}
                     />
-                    {errors.YY && <p role="alert">{errors.YY?.message}</p>}
+                    {errors.YY && <p role="alert">{errors.YY?.message as ReactNode}</p>}
                   </div>
                   <div>
                     <input
@@ -205,7 +205,9 @@ export default function Home() {
                       placeholder="e.g. 123"
                       onChange={handleCvcChange}
                     />
-                    {errors.cvc && <p role="alert">{errors.cvc?.message}</p>}
+                    {errors.cvc && (
+                      <p role="alert">{errors.cvc?.message as ReactNode}</p>
+                    )}
                   </div>
                 </div>
                 <input type="submit" value="Confirm" />
