@@ -199,6 +199,10 @@
   text-transform: capitalize;
 }
 
+.debitCardForm form div:nth-of-type(1) label:nth-of-type(2) {
+  margin-left: 30px;
+}
+
 @media (width <= 1120px) {
   .container {
     grid-template-columns: 1fr;
@@ -244,6 +248,10 @@
 }
 
 @media (width <= 610px) {
+  .cardPreview {
+    height: 200px;
+  }
+
   .debitCardForm {
     margin-top: 80px;
     padding-bottom: 100px;
@@ -260,15 +268,91 @@
   }
 
   .debitCardForm form div:nth-of-type(1) label:nth-of-type(2) {
-    margin-left: -5px;
+    margin-left: 38px;
   }
   
   .cardFront {
-    transform: translate(-40px, 220px);
-    z-index: 1;
+    transform: translate(-50px, 183px);
+  }
+  
+  .cardBack {
+    transform: translate(50px, -88px);
   }
 
+  .cardFront .wrapper div {
+    font-size: 10px;
+  }
+
+  .debitCardForm form div div:nth-of-type(3) {
+    width: 180px;
+  }
+
+  .cardFront,
   .cardBack {
-    transform: translate(40px, -135px);
+    width: 270px;
+    height: 148px;
+    min-height: 148px;
+  }
+
+  .cardBack span {
+    position: absolute;
+    top: 65px;
+    right: 35px;
+    font-size: 13px;
+  }
+
+  .cardFront img {
+    width: 55px;
+    max-height: 30px;
+    min-height: 30px;
+  }
+
+  .cardFront span {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-size: 17px;
+  }
+
+  .wrapper {
+    padding: 20px;
+  }
+
+}
+
+@media (width <= 495px) {
+  .cardFront {
+    transform: translate(-50px, 183px);
+  }
+  
+  .cardBack {
+    transform: translate(50px, -88px);
+  }
+}
+
+@media (width <= 385px) {
+  .cardFront {
+    transform: translate(-30px, 183px);
+  }
+  
+  .cardBack {
+    transform: translate(30px, -88px);
+  }
+
+  .debitCardForm form {
+    width: 300px;
+  }
+
+  .debitCardForm form div:nth-of-type(1) label:nth-of-type(2) {
+    margin-left: 16px;
+  }
+}
+
+@media (width <= 336px) {
+  .cardFront {
+    transform: translate(-20px, 183px);
+  }
+  
+  .cardBack {
+    transform: translate(20px, -88px);
   }
 }
